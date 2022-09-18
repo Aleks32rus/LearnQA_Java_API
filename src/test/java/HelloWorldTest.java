@@ -1,6 +1,9 @@
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.core.IsNull.notNullValue;
 
 public class HelloWorldTest {
 
@@ -17,4 +20,27 @@ public class HelloWorldTest {
         System.out.println(response.asString());
     }
 
+    @Test
+    public void testEx5() {
+        JsonPath response = RestAssured
+                .given()
+                .get("https://playground.learnqa.ru/api/get_json_homework")
+                .jsonPath();
+
+        String answer = response.get("messages.message[1]");
+        System.out.println(answer);
+    }
+
+    @Test
+    public void testEx6() {
+        Response response = RestAssured
+                .given()
+                .redirects()
+                .follow(false)
+                .when()
+                .get("https://playground.learnqa.ru/api/long_redirect")
+                .andReturn();
+
+        System.out.println(response.getHeader("Location"));
+    }
 }
