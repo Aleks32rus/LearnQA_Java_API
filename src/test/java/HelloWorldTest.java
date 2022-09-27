@@ -3,6 +3,9 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.hamcrest.core.IsNull.notNullValue;
 
 public class HelloWorldTest {
@@ -65,4 +68,39 @@ public class HelloWorldTest {
         System.out.println("Amount of redirects: " + amountOfRedirects);
     }
 
+    @Test
+    public void testEx8() throws InterruptedException {
+        String url = "https://playground.learnqa.ru/ajax/api/longtime_job";
+        JsonPath response = RestAssured
+                .get(url)
+                .jsonPath();
+        String token = response.get("token");
+        int seconds = response.get("seconds");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("token", token);
+
+        JsonPath response2 = RestAssured
+                .given()
+                .queryParams(params)
+                .get(url)
+                .jsonPath();
+
+        String status = response2.get("status");
+        if (status.equals("Job is NOT ready")) {
+            Thread.sleep(seconds * 1000L);
+            JsonPath response3 = RestAssured
+                    .given()
+                    .queryParams(params)
+                    .get(url)
+                    .jsonPath();
+            status = response3.get("status");
+            String result = response3.get("result");
+            if (status.equals("Job is ready") & (result == null)) {
+                System.out.println("The key 'result' is absent");
+            }
+            System.out.println(status);
+            System.out.println(result);
+        } else System.out.println("Status is incorrect");
+    }
 }
