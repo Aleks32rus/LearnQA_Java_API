@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class HelloWorldTest {
 
@@ -102,5 +103,11 @@ public class HelloWorldTest {
             System.out.println(status);
             System.out.println(result);
         } else System.out.println("Status is incorrect");
+    }
+
+    @Test
+    public void testEx10() {
+        String text = "fewofijewwwwwwwwwwwwww";
+        assertTrue(text.length() >= 15, "Incorrect number of characters in the text");
     }
 }
