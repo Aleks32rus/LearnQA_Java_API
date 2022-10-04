@@ -1,4 +1,6 @@
 import io.restassured.RestAssured;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
@@ -6,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -109,5 +112,27 @@ public class HelloWorldTest {
     public void testEx10() {
         String text = "fewofijewwwwwwwwwwwwww";
         assertTrue(text.length() >= 15, "Incorrect number of characters in the text");
+    }
+
+    @Test
+    public void testEx11() {
+        Response response = RestAssured
+                .get("https://playground.learnqa.ru/api/homework_cookie")
+                .andReturn();
+        Map<String, String> cookies = response.getCookies();
+        assertTrue(cookies.containsKey("HomeWork"), "Invalid key");
+        assertTrue(cookies.containsValue("hw_value"), "Invalid value");
+    }
+
+    @Test
+    public void testEx12() {
+        Response response = RestAssured
+                .get("https://playground.learnqa.ru/api/homework_header")
+                .andReturn();
+        Headers header = response.getHeaders();
+        System.out.println(header);
+        assertTrue(header.hasHeaderWithName("x-secret-homework-header"), "Invalid header");
+        assertEquals("Some secret value", header.getValue("x-secret-homework-header"), "Invalid value header");
+
     }
 }
