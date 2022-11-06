@@ -1,8 +1,8 @@
 package tests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
@@ -15,14 +15,15 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+@Epic("User delete cases")
+@Feature("User delete")
 public class UserDeleteTest extends BaseTestCase {
 
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
     @DisplayName("Delete existing user")
-    @Link("https://271821.selcdn.ru/b-webinars/api_java/lesson4/l4m5-allure.mp4")
-    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://software-testing.ru/lms/mod/assign/view.php?id=289484")
     public void testDeleteExistingUser() {
 
         String email = "vinkotov@example.com";
@@ -50,8 +51,7 @@ public class UserDeleteTest extends BaseTestCase {
 
     @Test
     @DisplayName("Delete just created user")
-    @Link("https://271821.selcdn.ru/b-webinars/api_java/lesson4/l4m5-allure.mp4")
-    @Severity(SeverityLevel.NORMAL)
+    @Link("https://software-testing.ru/lms/mod/assign/view.php?id=289484")
     public void testDeleteJustCreatedUser() {
 
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -84,8 +84,7 @@ public class UserDeleteTest extends BaseTestCase {
 
     @Test
     @DisplayName("Delete just created user with authorization as other user")
-    @Link("https://271821.selcdn.ru/b-webinars/api_java/lesson4/l4m5-allure.mp4")
-    @Severity(SeverityLevel.NORMAL)
+    @Link("https://software-testing.ru/lms/mod/assign/view.php?id=289484")
     public void testDeleteJustCreatedUserAuthorizationAsOtherUser() {
 
         Map<String, String> userData = DataGenerator.getRegistrationData();

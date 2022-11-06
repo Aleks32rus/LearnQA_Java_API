@@ -138,7 +138,7 @@ public class HelloWorldTests {
 
     }
 
-    @ParameterizedTest
+/*    @ParameterizedTest
     @CsvSource({"'Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30', Mobile, No, Android",
             "'Mozilla/5.0 (iPad; CPU OS 13_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/91.0.4472.77 Mobile/15E148 Safari/604.1', Mobile, Chrome, iOS",
             "'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)', Googlebot, Unknown, Unknown",
@@ -159,10 +159,10 @@ public class HelloWorldTests {
         assertEquals(platform, responsePlatform, ("User Agent= " + userAgent + "с неправильным " + "platform=" + responsePlatform));
         assertEquals(browser, responseBrowser, ("User Agent= " + userAgent + "с неправильным " + "browser= " + responseBrowser));
         assertEquals(device, responseDevice, ("User Agent= " + userAgent + "с неправильным " + "device = " + responseDevice));
-    }
+    }*/
 
     @Test
-    void testEx9() {
+    public void testEx9() {
         String[] passwords = {"123456", "123456789", "qwerty", "password", "1234567",
                 "12345678", "12345", "iloveyou", "111111", "123123",
                 "abc123", "qwerty123", "1q2w3e4r", "admin", "qwertyuiop",

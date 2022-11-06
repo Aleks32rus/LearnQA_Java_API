@@ -14,8 +14,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-@Epic("Authorization cases")
-@Feature("Authorization")
+@Epic("User edit cases")
+@Feature("User edit")
 public class UserEditTest extends BaseTestCase {
 
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
